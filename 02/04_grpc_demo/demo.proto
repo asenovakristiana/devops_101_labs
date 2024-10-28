@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package demo;
+
+// The demo service definition.
+service DemoService {
+  // Get current server time
+  rpc GetTime (Empty) returns (TimeResponse);
+  
+  // Echo the message back
+  rpc EchoMessage (EchoRequest) returns (EchoResponse);
+}
+
+// Empty message (used for GetTime)
+message Empty {}
+
+// Response message containing the server time
+message TimeResponse {
+  string current_time = 1;
+}
+
+// Request message for echo
+message EchoRequest {
+  string message = 1;
+}
+
+// Response message for echo
+message EchoResponse {
+  string message = 1;
+}
