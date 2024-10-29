@@ -26,4 +26,6 @@ python binary_server.py
 ```
 
 * Send binary data
+```bash
 echo -ne "\x00\x00\x00\x0e\x01\x48\x65\x6c\x6c\x6f\x2c\x20\x73\x65\x72\x76\x65\x72\x21" | nc 127.0.0.1 65432
+```
