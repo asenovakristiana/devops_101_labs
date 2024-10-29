@@ -1,11 +1,11 @@
 # Create python virtual environment
 ```bash
-python -m venv venv
+python -m venv .venv
 ```
 
 # Activate python virtual environment
 ```bash
-source venv/bin/activate
+source .venv/bin/activate
 ```
 
 # Install the necessary gRPC tools by running:
