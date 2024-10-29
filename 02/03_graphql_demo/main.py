@@ -91,7 +91,7 @@ class Query:
         return [MovieType(id=movie.id, title=movie.title, director=movie.director, writer=movie.writer, year=movie.year) for movie in result]
 
 # Create FastAPI app and GraphQL router
-schema = strawberry.Schema(queryh=Query)
+schema = strawberry.Schema(query=Query)
 app = FastAPI()
 graphql_app = GraphQLRouter(schema)
 
