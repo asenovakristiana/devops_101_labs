@@ -5,6 +5,7 @@ __pycache__/
 
 # sqllite
 *.db
+*.db-*
 
 # C extensions
 *.so
