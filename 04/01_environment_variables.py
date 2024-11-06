@@ -1,7 +1,7 @@
 import os
 
-username = os.environ.get('USERNAME')
-if username:
-    print(username)
+nickname = os.environ.get('NICKNAME')
+if nickname:
+    print(nickname)
 else:
-    print("Environment variable 'USERNAME' is not provided!")
+    print("Environment variable 'NICKNAME' is not provided!")
