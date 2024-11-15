@@ -6,7 +6,7 @@ import time
 # Define a function that the threads will run
 def thread_function(name):
     print(f"Thread {name} starting")
-    for i in range(30):
+    for _ in range(30):
         time.sleep(10)  # Simulate work with sleep
         print(f"Print from thread {name}")
     print(f"Thread {name} finishing")
