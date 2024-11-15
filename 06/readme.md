@@ -35,7 +35,7 @@ https://www.cherryservers.com/blog/install-docker-ubuntu
 * Start ubuntu terminal and execute:
 ```bash
 sudo apt update
-sudo apt install docker.io -y
+sudo apt install docker.io docker-compose -y
 sudo systemctl enable docker
 sudo systemctl start docker
 ```
@@ -63,7 +63,7 @@ Docker version 24.0.7, build 24.0.7-0ubuntu4.1
 docker run hello-world
 ```
 
-* You should see a message from the container:
+You should see a message from the container:
 ```
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
@@ -89,6 +89,7 @@ docker rmi hello-world
 ```
 
 # Build your own image
+We will build a docker image with a simple python app
 * Enter the my-app directory
 ```bash
 cd my-app
