@@ -1,3 +1,6 @@
+# Prerequsities
+* Ensure you have compleated module 6
+* You need to have docker up and running
 
 # Install go
 ```bash
