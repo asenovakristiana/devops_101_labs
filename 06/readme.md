@@ -35,7 +35,7 @@ https://www.cherryservers.com/blog/install-docker-ubuntu
 * Start ubuntu terminal and execute:
 ```bash
 sudo apt update
-sudo apt install docker.io docker-compose -y
+sudo apt install docker.io docker-compose-v2 -y
 sudo systemctl enable docker
 sudo systemctl start docker
 ```
@@ -321,3 +321,20 @@ Replace **USERNAME** with your personal GitHub account
 docker push ghcr.io/USERNAME/my-app:latest
 ```
 Replace **USERNAME** with your personal GitHub account
+
+# Docker compose
+* Enter the my-postgres-app directory
+```bash
+cd my-postgres-app
+```
+* Review the docker compose file
+The file container definition for docker network, volume and two containers - postgres database and application
+```bash
+cat docker-compose.yml 
+```
+
+* Run docker compose
+This will build the application image and run both containers
+```bash
+docker compose up --build
+```

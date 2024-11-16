@@ -1,0 +1,40 @@
+version: "3.9"
+
+networks:
+  my-postgres-app:
+    driver: bridge
+
+services:
+  database:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my-postgres-app
+    
+  my-postgres-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-postgres-app
+    depends_on:
+      - database
+    environment:
+      DATABASE_HOST: postgres-db
+      DATABASE_USER: myuser
+      DATABASE_PASS: mypassword
+      DATABASE_NAME: mydatabase
+    ports:
+      - "8000:8000"
+    networks:
+      - my-postgres-app
+
+volumes:
+  postgres_data:
