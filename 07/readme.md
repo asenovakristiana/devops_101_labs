@@ -2,25 +2,28 @@
 * Ensure you have compleated module 6
 * You need to have docker up and running
 
-# Install go
+# KIND Instalation
+## Install go
 ```bash
 sudo apt install golang-go -y
 ```
+
 * Add go bin path to your shell
 ```bash
 export PATH="$(go env GOPATH)/bin:$PATH"
 ```
 
-# Install KIND
+## Install KIND executable
 ```bash
 go install sigs.k8s.io/kind@v0.25.0
 ```
-# Test kind
+
+## Test kind
 ```bash
 kind version
 ```
 
-# Install Cluster
+# Create KIND Cluster
 ```bash
 cat <<EOF > kind-config.yaml
 kind: Cluster
@@ -28,8 +31,8 @@ apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
   - role: control-plane
     extraPortMappings:
-      - containerPort: 9080
-        hostPort: 9080
+      - containerPort: 30000
+        hostPort: 30000
         protocol: TCP
 EOF
 ```
@@ -45,7 +48,6 @@ kubectl cluster-info
 ```bash
 cat ~/.kube/config
 ```
-
 
 # Namespaces
 * List namespaces
@@ -93,15 +95,44 @@ kubectl config set-context --current --namespace=myapp2
 # PODs with imperative commands
 * Run simple echo server 
 ```bash
-kubectl run echo-server --image=ealen/echo-server --port=8080
+kubectl run echo-server -l app=echo-server --port=5678 --image=hashicorp/http-echo -- -text="hello world"
 ```
 
-* Wait POD condition to be Ready
+* Wait echo-server POD condition to be Ready
 ```bash
 kubectl wait --for=condition=Ready pod/echo-server --timeout=120s
 ```
 
-* Expose port
+* Review POD description
 ```bash
-kubectl expose pod echo-server --type=NodePort --port=9080 --target-port=8080
+kubectl describe pod echo-server
+```
+
+* Test selector
+```bash
+kubectl get pods --selector=run=echo-server
+```
+
+* Create NodePod service on nodePort 30000 to echo-server pod 5678
+```bash
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-server
+spec:
+  type: NodePort
+  selector:
+    app: echo-server
+  ports:
+    - protocol: TCP
+      port: 5678          # Port on the Service
+      targetPort: 5678    # Port on the Pod
+      nodePort: 30000     # Specific NodePort
+EOF
+```
+
+* Validate connection to echo server
+```bash
+curl localhost:30000
 ```
