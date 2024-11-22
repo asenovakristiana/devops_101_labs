@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-apps-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  # ingressClassName is used to reference the IngressClass that should be used to implement this Ingress
+  ingressClassName: nginx
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-main-app-service
+            port:
+              number: 5678
+
+      - path: /subpath
+        pathType: Prefix
+        backend:
+          service:
+            name: my-subpath-app-service
+            port:
+              number: 5678

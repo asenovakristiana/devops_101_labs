@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-app-config-file
+data: 
+  config: |
+    database:
+      name: db01
+      host: db01.example.com

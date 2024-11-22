@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-app-config-env
+data:
+  DATABASE_HOST: "db09.example.com"
+  DATABASE_NAME: "myappdb"

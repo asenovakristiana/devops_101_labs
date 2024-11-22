@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-main-app
+  labels:
+    app: my-main-app
+spec:
+  containers:
+    - name: main-app
+      image: hashicorp/http-echo
+      args:
+        - "-text=Hello, from main app!"
+      ports:
+        - containerPort: 5678
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-subpath-app
+  labels:
+    app: my-subpath-app
+spec:
+  containers:
+    - name: main-app
+      image: hashicorp/http-echo
+      args:
+        - "-text=Hello, from subpath app!"
+      ports:
+        - containerPort: 5678
