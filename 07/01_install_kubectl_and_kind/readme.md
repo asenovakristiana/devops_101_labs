@@ -2,9 +2,17 @@
 * Ensure you have compleated module 6
 * You need to have docker up and running
 
+# Install kubectl
+```bash
+mkdir -p $HOME/bin
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" --output-dir $HOME/bin
+chmod +x $HOME/bin/kubectl
+```
+
 # KIND Instalation
 ## Install go
 ```bash
+sudo apt update
 sudo apt install golang-go -y
 ```
 
