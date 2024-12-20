@@ -7,10 +7,15 @@ cat .github/workflows/integrate.yml
 ## Create repostiory
 Create a github repository in your personal account.
 
-## Copy the content
-Copy the content of the directory to your new repository
+## Clone repository
 ```bash
-cp -rf . my-new-repo
+git clone your-repo-url
+```
+
+## Copy the content
+Copy the content of the current directory to your new repository
+```bash
+cp -rf . path/to/my-new-repo
 ```
 
 ## Commit and push
