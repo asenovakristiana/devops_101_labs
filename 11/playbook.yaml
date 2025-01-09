@@ -1,0 +1,73 @@
+- name: Install app
+  hosts: tag_Role_webserver
+  gather_facts: yes
+  remote_user: ubuntu
+  become: yes
+
+  vars:
+    image_file: "/tmp/myapp.tar"
+    target_image_file: "/root/myapp.tar"
+    local_image: "myapiapp:latest"
+    container_name: "myapiapp"
+  
+  environment:
+        NEW_RELIC_API_KEY: SETAPIKEY
+        NEW_RELIC_ACCOUNT_ID: 6300609
+        NEW_RELIC_REGION: EU
+        
+  roles:
+    - role: newrelic.newrelic_install
+      vars:
+        targets:
+          - infrastructure
+          - logs
+        tags:
+          infra: myapiapp
+  
+  tasks:
+    - name: Save Docker image locally
+      ansible.builtin.command:
+        cmd: "docker save -o {{ image_file }} {{ local_image }}"
+      delegate_to: localhost
+      become: false
+      run_once: true
+
+    - name: Copy the image tarball to the remote host
+      ansible.builtin.copy:
+        src: "{{ image_file }}"
+        dest: "{{ target_image_file }}"
+
+    - name: Install docker
+      ansible.builtin.package: 
+       name: docker.io
+       state: present
+       update_cache: yes
+       
+    - name: Enable docker service
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Load the Docker image on the remote host
+      community.docker.docker_image:
+        source: load
+        name: "{{ local_image }}"
+        load_path: "{{ target_image_file }}"
+
+    - name: Start the container
+      community.docker.docker_container:
+        name: "{{ container_name }}"
+        image: "{{ local_image }}"
+        state: started
+        published_ports:
+          - "80:8000"
+        env:
+          NEW_RELIC_LICENSE_KEY: eu01xxc5a96d50ccbc6f930c88ceea04FFFFNRAL
+          NEW_RELIC_APP_NAME: MyApiApp
+        restart_policy: always
+        log_driver: "json-file"
+        log_options:
+          max-size: "5m"
+          max-file: "2"
+          tag: "{{ '{{.Name}}' }}"
