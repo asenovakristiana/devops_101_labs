@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo App</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Todo App</h1>
+    <form id="add-todo" action="/add-item" method="post">
+        <input type="text" name="todo" placeholder="Enter your todo item" required>
+        <button type="submit">Add</button>
+    </form>
+    <h2>Todo List</h2>
+    <ul id="list-todo">
+        {% for item in todo_items %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

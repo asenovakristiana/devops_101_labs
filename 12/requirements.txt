@@ -1,0 +1,6 @@
+pytest
+fastapi[all]
+sqlalchemy
+testcontainers[postgresql] 
+psycopg2-binary
+pytest-playwright
