@@ -42,3 +42,8 @@ Normal  Sync    15m (x2 over 15m)  nginx-ingress-controller  Scheduled for sync
 curl http://localhost:30000
 curl http://localhost:30000/subpath
 ```
+
+# Cleanup
+```bash
+kubectl delete -f .
+```
