@@ -1,0 +1,12 @@
+port: 9000
+strategy: "round_robin" # default round_robin  - options - weighted_round_robin | sticky_session | least_connections | random
+health_check_interval_seconds: 5
+servers:
+  - name: "server1"
+    url: "http://localhost:9001"
+    health_url: "/"
+    weight: 1
+  - name: "server2"
+    url: "http://localhost:9002"
+    health_url: "/"
+    weight: 1
